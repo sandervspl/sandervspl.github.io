@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>React + TypeScript</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style>
+      .red {
+        color: #ff515b;
+      }
+    </style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+          <h2>React + <span class="fragment red">TypeScript</span></h2>
+        </section>
+
+        <section>
+          <section>
+            <h2>📝 Wat is TypeScript?</h2>
+          </section>
+          <section>
+            TypeScript (TS) is een <span class="red">Typed Superset</span> van JavaScript (JS).
+          </section>
+          <section>
+            <h3>💡 Weetjes</h3>
+            <ul>
+              <li class="fragment">Het is ontwikkeld door Microsoft</li>
+              <li class="fragment">Gebasseerd op ES6</li>
+              <li class="fragment">Veel support in VSCode en WebStorm 👍</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Wat houdt dit in?</h2>
+          </section>
+          <section>
+            TS voegt <span class="red">Static Typing</span> toe aan JS.
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Wat is Static Typing?</h2>
+          </section>
+          <section>
+              <p><span class="red">Static Typing</span> is het concept waarbij je aangeeft wat voor data een variabele vasthoudt.</p>
+              <p>Denk hierbij aan <span class="red">Prop Types</span>.</p>
+          </section>
+          <section>
+            <h3>Data Types</h3>
+            <div>
+              string
+              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                const str: string = 'Hello world!';
+              </code></pre>
+            </div>
+            <div>
+              number
+              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                const num: number = 322;
+              </code></pre>
+            </div>
+            <div>
+              boolean
+              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                const isTrue: boolean = false;
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <h3>Wat als ik dit doe?</h3>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+              let text: string;
+
+              <span class="fragment" data-fragment-index="1">text = 'foo';</span>
+              <span class="fragment" data-fragment-index="3">// Error: Type '100' is not assignable to type 'string'.</span>
+              <span class="fragment" data-fragment-index="2">text = 100;</span>
+            </code></pre>
+          </section>
+          <section>
+            <h3>Collecties</h3>
+            <div>
+              array
+              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                const array: string[] = ['hello', 'world'];
+              </code></pre>
+            </div>
+            <div class="fragment">object...?</div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Interface</h2>
+            <p>Een interface is een <span class="red">blauwdruk</span> van een <span class="red">data type</span>. Met een interface zeg je dus hoe een data type eruit moet zien.</p>
+          </section>
+          <section>
+            <h3>Voorbeeld</h3>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                interface IPerson {
+                  name: string;
+                  age: number;
+                  isAlive: boolean;
+                  children: IPerson[];
+                }
+
+                <span class="fragment">const person: IPerson;</span>
+              </code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                <span class="fragment">// Error: Property 'children' is missing in type '{ name: string; age: number; isAlive: true; }'.</span>
+                const person: IPerson = {
+                  name: 'Sander',
+                  age: 27,
+                  isAlive: true,
+                };
+              </code></pre>
+          </section>
+          <section>
+            Alles wat in een interface staat aangegeven is verplicht! <span class="fragment">Tenzij...</span>
+          </section>
+          <section>
+            <h3>Optionals</h3>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                interface IPerson {
+                  name: string;
+                  age: number;
+                  isAlive: boolean;
+                  children<span class="fragment highlight-current-red">?</span>: IPerson[];
+                }
+              </code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+                const person: IPerson = {
+                  name: 'Sander',
+                  age: 27,
+                  isAlive: true,
+                };
+              </code></pre>
+            <p>Geen errors!</p>
+          </section>
+          <section>
+            <h3>Bonus: <span class="red">extenden</span></h3>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+              interface IAthlete extends IPerson {
+                sport: string;
+              }
+              <span class="fragment" data-fragment-index="1">
+              // Vormt de volgende interface
+              interface {
+                name: string;
+                age: number;
+                isAlive: boolean;
+                children?: IPerson[];
+                sport: string;
+              }
+              </span>
+            </code></pre>
+
+            <p class="fragment">Een atleet is een persoon, maar een persoon is niet altijd een atleet!</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Functions</h2>
+            <p>Bij een function kan je aangeven wat de <span class="red">return value</span> is.</p>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+              function hundred(): number {
+                  return 100;
+              }
+
+              const thousand = (): number => {
+                return 1000;
+              }
+            </code></pre>
+          </section>
+          <section>
+            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
+              const helloWorld = (): string => {
+                return 'Hello world!';
+              }
+            </code></pre>
+          </section>
+          <section>
+            Je kan ook de parameters een data type geven!
+            <pre class="fragment fade-out" data-fragment-index="1"><code data-trim data-noescape class="typescript hljs" contenteditable>
+              const talk = (text: string): string => {
+                return `You say: ${text}`;
+              }
+            </code></pre>
+
+            <pre class="fragment" data-fragment-index="1"><code data-trim data-noescape class="typescript hljs" contenteditable>
+              const personTalk = (person: IPerson, text: string): string => {
+                return `${person.name} says: ${text}`;
+              }
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Maar... waarom?</h2>
+            <p>In het kort: Het maakt het onderhouden van code, op lange termijn, makkelijker.</p>
+          </section>
+          <section>
+            <h3>De voordelen</h3>
+          </section>
+          <section>
+            <h4>Type Annotations</h4>
+            <ul>
+              <li class="fragment">Kan de code meer <span class="red">leesbaar</span> maken</li>
+              <li class="fragment">Kan het <span class="red">analyseren</span> van code makkelijker maken</li>
+              <li class="fragment">Maakt het <span class="red">refactoren</span> van code makkelijker</li>
+              <li class="fragment">Kan voor betere <span class="red">IDE support/experience</span> zorgen</li>
+              <li class="fragment">Kan eerder <span class="red">errors</span> zien</li>
+            </ul>
+            <p class="fragment">(let op het woordje "<span class="red">kan</span>")</p>
+          </section>
+          <section>
+            <h4>Data Structures</h4>
+            <p>Je kan <span class="red">data structuren</span> makkelijk opstellen. Hierdoor is het makkelijk voor de programmeurs om te zien hoe een data structuur in elkaar zit. Denk bij data structuren aan</p>
+            <ul>
+              <li class="fragment">REST payload</li>
+              <li class="fragment">config files</li>
+              <li class="fragment">objects van, en naar, database</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>De nadelen</h2>
+            <p>Natuurlijk is TS niet perfect!</p>
+          </section>
+          <section>
+            <h3>Nadelen</h3>
+            <ul>
+              <li class="fragment">Kan extra werk zijn om libraries/modules te installeren.</li>
+              <li class="fragment">Extra boilerplate (meer code)</li>
+              <li class="fragment">Kost dus (iets) meer tijd</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h1>En nu <span class="red">echte</span> code!</h1>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
