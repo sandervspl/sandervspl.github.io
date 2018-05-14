@@ -1,295 +1,425 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>React + TypeScript</title>
+  <title>MobX introduction</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+  <link href="https://fonts.googleapis.com/css?family=Glegoo" rel="stylesheet">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
 
-    <style>
-      .red {
-        color: #ff515b;
-      }
-    </style>
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-          <h2>React + <span class="fragment red">TypeScript</span></h2>
-        </section>
+  <link rel="stylesheet" href="css/style.css">
 
-        <section>
-          <section>
-            <h2>📝 Wat is TypeScript?</h2>
-          </section>
-          <section>
-            TypeScript (TS) is een <span class="red">Typed Superset</span> van JavaScript (JS).
-          </section>
-          <section>
-            <h3>💡 Weetjes</h3>
-            <ul>
-              <li class="fragment">Het is ontwikkeld door Microsoft</li>
-              <li class="fragment">Gebasseerd op ES6</li>
-              <li class="fragment">Veel support in VSCode en WebStorm 👍</li>
-            </ul>
-          </section>
-        </section>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <!--<section data-background-color="#EEEEEE">-->
+      <!--<div class="flex__row page__title">-->
+      <!--<h1 class="orange">MobX</h1>-->
+      <!--<img src="media/img/mobx.png" alt="mobx-logo">-->
+      <!--</div>-->
+    <!--</section>-->
 
-        <section>
-          <section>
-            <h2>Wat houdt dit in?</h2>
-          </section>
-          <section>
-            TS voegt <span class="red">Static Typing</span> toe aan JS.
-          </section>
-        </section>
+    <!--<section data-background-color="#EEEEEE">-->
+      <!--<section class="page__intro" data-background-color="#242424">-->
+        <!--<h2>Wat is MobX?</h2>-->
+      <!--</section>-->
+      <!--<section>-->
+        <!--MobX is een <span class="red">State Management Tool</span> net als Redux.-->
+      <!--</section>-->
+      <!--<section class="flex__row">-->
+        <!--<div class="left">-->
+          <!--<h4 class="slim">MobX omschrijft zichzelf als volgt</h4>-->
+        <!--</div>-->
+        <!--<div class="right red&#45;&#45;bg">-->
+          <!--<blockquote class="simple">-->
+            <!--MobX is a battle tested library that makes state management simple and scalable by transparently applying functional reactive programming (TFRP).-->
+          <!--</blockquote>-->
+        <!--</div>-->
+      <!--</section>-->
+      <!--<section>-->
+        <!--<blockquote class="fancy">-->
+          <!--<p>Anything that can be derived from the application state, should be derived.</p>-->
+          <!--<p>Automatically.</p>-->
+          <!--<span>- MobX</span>-->
+        <!--</blockquote>-->
+      <!--</section>-->
+    <!--</section>-->
 
-        <section>
-          <section>
-            <h2>Wat is Static Typing?</h2>
-          </section>
-          <section>
-              <p><span class="red">Static Typing</span> is het concept waarbij je aangeeft wat voor data een variabele vasthoudt.</p>
-              <p>Denk hierbij aan <span class="red">Prop Types</span>.</p>
-          </section>
-          <section>
-            <h3>Data Types</h3>
-            <div>
-              string
-              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                const str: string = 'Hello world!';
-              </code></pre>
+    <!--<section data-background-color="#EEEEEE">-->
+      <!--<section class="page__intro" data-background-color="#242424">-->
+        <!--<h2>Wat is het verschil met Redux?</h2>-->
+      <!--</section>-->
+      <!--<section class="flex__row">-->
+        <!--<div class="left flex__col">-->
+          <!--<h4 class="red">Redux</h4>-->
+          <!--<img src="media/img/redux-flow.png" />-->
+        <!--</div>-->
+        <!--<div class="fragment right flex__col">-->
+          <!--<h4 class="orange">MobX</h4>-->
+          <!--<img src="media/img/mobx-flow.png" />-->
+        <!--</div>-->
+      <!--</section>-->
+      <!--<section class="flex__col">-->
+        <!--<div class="top c-25">-->
+          <!--<h3>De verschillen</h3>-->
+        <!--</div>-->
+        <!--<div class="bottom c-75">-->
+          <!--<div class="flex__row small">-->
+            <!--<div>-->
+              <!--<h5 class="red">Redux</h5>-->
+              <!--<ul>-->
+                <!--<li class="fragment" data-fragment-index="1">Single store</li>-->
+                <!--<li class="fragment" data-fragment-index="2">Plain objects</li>-->
+                <!--<li class="fragment" data-fragment-index="3">Immutable</li>-->
+                <!--<li class="fragment" data-fragment-index="4">Normalized state</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<h5 class="orange">MobX</h5>-->
+              <!--<ul>-->
+                <!--<li class="fragment" data-fragment-index="1">Multiple stores</li>-->
+                <!--<li class="fragment" data-fragment-index="2">Observable data</li>-->
+                <!--<li class="fragment" data-fragment-index="3">Mutable</li>-->
+                <!--<li class="fragment" data-fragment-index="4">Nested state</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</section>-->
+    <!--</section>-->
+
+    <!--<section data-background-color="#EEEEEE">-->
+      <!--<section class="page__intro" data-background-color="#242424">-->
+        <!--<h2>Voordat we code gaan vergelijken...</h2>-->
+      <!--</section>-->
+
+      <!--<section class="flex__row">-->
+        <!--<div class="left">-->
+          <!--<h4>De code voorbeelden gebruiken de volgende technieken die wij hier bij Label A niet gebruiken</h4>-->
+        <!--</div>-->
+
+        <!--<div class="right flex__col red&#45;&#45;bg">-->
+          <!--<ul>-->
+            <!--<li class="fragment">Decorators</li>-->
+            <!--<li class="fragment">Observer Pattern</li>-->
+            <!--<li class="fragment">TypeScript <small>(alleen mijn code)</small></li>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</section>-->
+
+      <!--<section class="flex__col">-->
+        <!--<div class="top blue&#45;&#45;bg">-->
+          <!--<h3>Decorators</h3>-->
+          <!--<p>In het kort zijn Decorators gewoon "fancy" HOCs. De volgende code doet hetzelfde.</p>-->
+        <!--</div>-->
+
+        <!--<div class="bottom">-->
+          <!--<div class="flex__row">-->
+            <!--<div class="fragment left">-->
+              <!--<div class="flex__col">-->
+                <!--<h4>HOC nu</h4>-->
+                <!--<pre><code data-trim data-noescape class="javascript hljs" contenteditable>-->
+                  <!--class User {-->
+                    <!--name = 'Sander';-->
+                    <!--age = 27;-->
+                  <!--}-->
+
+                  <!--withSomeHoc(User);-->
+                <!--</code></pre>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="fragment right">-->
+              <!--<div class="flex__col">-->
+                <!--<h4>HOC als decorator</h4>-->
+                <!--<pre><code data-trim data-noescape class="javascript hljs" contenteditable>-->
+                  <!--@withSomeHoc-->
+                  <!--class User {-->
+                    <!--name = 'Sander';-->
+                    <!--age = 27;-->
+                  <!--}-->
+                <!--</code></pre>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</section>-->
+
+      <!--<section class="flex__col">-->
+        <!--<div class="top blue&#45;&#45;bg" style="height: 35%">-->
+          <!--<h3>Observer Pattern</h3>-->
+          <!--<div class="smallest">-->
+            <!--Een patroon waarbij je een "observable" en meerdere "observers" hebt. De "observers" subscriben zichzelf aan een "observable" zodat zij ingelicht worden wanneer de "observable" wordt geüpdated.-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="bottom" style="height: 65%">-->
+          <!--<div class="fragment flex__row">-->
+            <!--<div class="left">-->
+              <!--<pre><code data-trim data-noescape class="javascript hljs small" contenteditable>-->
+                <!--// an observable class-->
+                <!--class DJ {-->
+                  <!--currentSong = { artist: 'Frans Duijts', title: 'Samen op het strand' };-->
+                  <!--subscribers = [];-->
+
+                  <!--subscribe = (observer) => {-->
+                    <!--this.subscribers.push(observer);-->
+                  <!--}-->
+
+                  <!--onSongChange = () => {-->
+                    <!--this.subscribers.forEach(observer => {-->
+                      <!--observer.update(this.currentSong);-->
+                    <!--});-->
+                  <!--}-->
+                <!--}-->
+              <!--</code></pre>-->
+            <!--</div>-->
+            <!--<div class="right">-->
+              <!--<pre><code data-trim data-noescape class="javascript hljs small" contenteditable>-->
+                <!--const dj = new DJ();-->
+
+                <!--// an observer class-->
+                <!--class Partygoer {-->
+                  <!--constructor() {-->
+                    <!--// subscribe to DJ-->
+                    <!--dj.subscribe(this);-->
+                  <!--}-->
+
+                  <!--update = (song) => {-->
+                    <!--console.log(song);-->
+                  <!--}-->
+                <!--}-->
+              <!--</code></pre>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</section>-->
+
+      <!--<section class="flex__col">-->
+        <!--<div class="top blue&#45;&#45;bg" style="height: 30%">-->
+          <!--<h3>TypeScript</h3>-->
+          <!--<p>Voegt Data Typing toe aan Javascript.</p>-->
+        <!--</div>-->
+
+        <!--<div class="bottom" style="height: 70%">-->
+          <!--<div class="flex__row">-->
+            <!--<div class="fragment left" data-fragment-index="1" style="width: 40%">-->
+              <!--<pre><code data-trim data-noescape class="javascript hljs" contenteditable>-->
+                <!--class Human extends Hominina {-->
+                  <!--name = 'Sander';-->
+                  <!--age = 27;-->
+                <!--}-->
+              <!--</code></pre>-->
+            <!--</div>-->
+            <!--<div class="right flex__col" style="width: 60%">-->
+              <!--<div class="fragment top" data-fragment-index="2">-->
+                <!--<pre><code data-trim data-noescape class="typescript hljs" contenteditable>-->
+                  <!--class Human implements IHuman extends Hominina {-->
+                    <!--<span class="fragment highlight-red" data-fragment-index="3">private</span> name: string = 'Sander';-->
+                    <!--private age: number = 27;-->
+                  <!--}-->
+                <!--</code></pre>-->
+              <!--</div>-->
+              <!--<div class="fragment bottom" data-fragment-index="2">-->
+                <!--<pre><code data-trim data-noescape class="typescript hljs" contenteditable>-->
+                  <!--interface IHuman {-->
+                    <!--name: string;-->
+                    <!--age: number;-->
+                  <!--}-->
+                <!--</code></pre>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</section>-->
+    <!--</section>-->
+
+    <!--<section data-background-color="#EEEEEE">-->
+      <!--<section class="page__intro" data-background-color="#242424">-->
+        <!--<h2>Single store vs. Multiple stores</h2>-->
+      <!--</section>-->
+    <!--</section>-->
+    <section data-background-color="#EEEEEE">
+      <section class="page__intro" data-background-color="#242424">
+        <h3>Actions</h3>
+      </section>
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">Redux</h4>
             </div>
-            <div>
-              number
-              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                const num: number = 322;
-              </code></pre>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy small" style="color: #FFFFFF">
+                Actions are payloads of information that send data from your application to your store. They are the only source of information for the store.
+              </blockquote>
             </div>
-            <div>
-              boolean
-              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                const isTrue: boolean = false;
-              </code></pre>
+          </div>
+        </div>
+        <div class="right">
+          <pre><code data-trim data-noescape class="javascript hljs" contenteditable>
+            const toggleTodo = (done) => ({
+              type: TOGGLE_TODO,
+              done,
+            })
+          </code></pre>
+        </div>
+      </section>
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">MobX</h4>
             </div>
-          </section>
-          <section>
-            <h3>Wat als ik dit doe?</h3>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-              let text: string;
-
-              <span class="fragment" data-fragment-index="1">text = 'foo';</span>
-              <span class="fragment" data-fragment-index="3">// Error: Type '100' is not assignable to type 'string'.</span>
-              <span class="fragment" data-fragment-index="2">text = 100;</span>
-            </code></pre>
-          </section>
-          <section>
-            <h3>Collecties</h3>
-            <div>
-              array
-              <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                const array: string[] = ['hello', 'world'];
-              </code></pre>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy small" style="color: #FFFFFF">
+                Events invoke actions. Actions are the only thing that modify state and <u>may have other side effects.</u>
+              </blockquote>
             </div>
-            <div class="fragment">object...?</div>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>Interface</h2>
-            <p>Een interface is een <span class="red">blauwdruk</span> van een <span class="red">data type</span>. Met een interface zeg je dus hoe een data type eruit moet zien.</p>
-          </section>
-          <section>
-            <h3>Voorbeeld</h3>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                interface IPerson {
-                  name: string;
-                  age: number;
-                  isAlive: boolean;
-                  children: IPerson[];
+          </div>
+        </div>
+        <div class="right">
+          <pre><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @action
+            onClick = (done) => {
+              this.done = done
+            }
+          </code></pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex__row small" style="height: 50%">
+          <div class="left">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="red">Redux</h5>
+              <ul>
+                <li>Zelf updates nagaan</li>
+                <li>Expliciet</li>
+                <li>Passief</li>
+              </ul>
+            </div>
+          </div>
+          <div class="right">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="orange">MobX</h5>
+              <ul>
+                <li>Gaat automatisch updates na</li>
+                <li>Impliciet</li>
+                <li>Reactief</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="flex__row small" style="height: 50%">
+          <div class="left">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="red">Redux</h5>
+              <ul>
+                <li>Read-only state</li>
+                <li>prevState => newState</li>
+                <li>Pure</li>
+              </ul>
+            </div>
+          </div>
+          <div class="right">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="orange">MobX</h5>
+              <ul>
+                <li>Read AND write to state</li>
+                <li>state => state</li>
+                <li>Impure</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="flex__row small" style="height: 50%; max-width: none">
+          <div class="left">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="red">Redux</h5>
+              <ul>
+                <li>Actions verplicht</li>
+              </ul>
+              <pre class="fragment" style="margin-bottom: 10px !important"><code data-trim data-noescape class="javascript hljs" contenteditable>
+                const toggleTodo = (done) => ({
+                  type: TOGGLE_TODO,
+                  done,
+                })
+              </code></pre>
+              <pre class="fragment"><code data-trim data-noescape class="javascript hljs" contenteditable>
+                const reducer = (state, action) => {
+                  switch (action.type) {
+                    case TOGGLE_TODO:
+                      return {
+                        ...state,
+                        done: action.done,
+                      };
+                  }
                 }
-
-                <span class="fragment">const person: IPerson;</span>
               </code></pre>
-          </section>
-          <section>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                <span class="fragment">// Error: Property 'children' is missing in type '{ name: string; age: number; isAlive: true; }'.</span>
-                const person: IPerson = {
-                  name: 'Sander',
-                  age: 27,
-                  isAlive: true,
-                };
+            </div>
+          </div>
+          <div class="right">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="orange">MobX</h5>
+              <ul>
+                <li>Actions niet verplicht</li>
+              </ul>
+              <pre class="fragment"><code data-trim data-noescape class="javascript hljs" contenteditable>
+                &lt;button
+                  onClick={() => this.props.todoStore.done(true)}
+                />
               </code></pre>
-          </section>
-          <section>
-            Alles wat in een interface staat aangegeven is verplicht! <span class="fragment">Tenzij...</span>
-          </section>
-          <section>
-            <h3>Optionals</h3>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                interface IPerson {
-                  name: string;
-                  age: number;
-                  isAlive: boolean;
-                  children<span class="fragment highlight-current-red">?</span>: IPerson[];
-                }
-              </code></pre>
-          </section>
-          <section>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-                const person: IPerson = {
-                  name: 'Sander',
-                  age: 27,
-                  isAlive: true,
-                };
-              </code></pre>
-            <p>Geen errors!</p>
-          </section>
-          <section>
-            <h3>Bonus: <span class="red">extenden</span></h3>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-              interface IAthlete extends IPerson {
-                sport: string;
-              }
-              <span class="fragment" data-fragment-index="1">
-              // Vormt de volgende interface
-              interface {
-                name: string;
-                age: number;
-                isAlive: boolean;
-                children?: IPerson[];
-                sport: string;
-              }
-              </span>
-            </code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
 
-            <p class="fragment">Een atleet is een persoon, maar een persoon is niet altijd een atleet!</p>
-          </section>
-        </section>
+    <section>
+      <h1>En nu <span class="red">echte</span> code!</h1>
+    </section>
+  </div>
+</div>
 
-        <section>
-          <section>
-            <h2>Functions</h2>
-            <p>Bij een function kan je aangeven wat de <span class="red">return value</span> is.</p>
-          </section>
-          <section>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-              function hundred(): number {
-                  return 100;
-              }
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
 
-              const thousand = (): number => {
-                return 1000;
-              }
-            </code></pre>
-          </section>
-          <section>
-            <pre><code data-trim data-noescape class="typescript hljs" contenteditable>
-              const helloWorld = (): string => {
-                return 'Hello world!';
-              }
-            </code></pre>
-          </section>
-          <section>
-            Je kan ook de parameters een data type geven!
-            <pre class="fragment fade-out" data-fragment-index="1"><code data-trim data-noescape class="typescript hljs" contenteditable>
-              const talk = (text: string): string => {
-                return `You say: ${text}`;
-              }
-            </code></pre>
-
-            <pre class="fragment" data-fragment-index="1"><code data-trim data-noescape class="typescript hljs" contenteditable>
-              const personTalk = (person: IPerson, text: string): string => {
-                return `${person.name} says: ${text}`;
-              }
-            </code></pre>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>Maar... waarom?</h2>
-            <p>In het kort: Het maakt het onderhouden van code, op lange termijn, makkelijker.</p>
-          </section>
-          <section>
-            <h3>De voordelen</h3>
-          </section>
-          <section>
-            <h4>Type Annotations</h4>
-            <ul>
-              <li class="fragment">Kan de code meer <span class="red">leesbaar</span> maken</li>
-              <li class="fragment">Kan het <span class="red">analyseren</span> van code makkelijker maken</li>
-              <li class="fragment">Maakt het <span class="red">refactoren</span> van code makkelijker</li>
-              <li class="fragment">Kan voor betere <span class="red">IDE support/experience</span> zorgen</li>
-              <li class="fragment">Kan eerder <span class="red">errors</span> zien</li>
-            </ul>
-            <p class="fragment">(let op het woordje "<span class="red">kan</span>")</p>
-          </section>
-          <section>
-            <h4>Data Structures</h4>
-            <p>Je kan <span class="red">data structuren</span> makkelijk opstellen. Hierdoor is het makkelijk voor de programmeurs om te zien hoe een data structuur in elkaar zit. Denk bij data structuren aan</p>
-            <ul>
-              <li class="fragment">REST payload</li>
-              <li class="fragment">config files</li>
-              <li class="fragment">objects van, en naar, database</li>
-            </ul>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>De nadelen</h2>
-            <p>Natuurlijk is TS niet perfect!</p>
-          </section>
-          <section>
-            <h3>Nadelen</h3>
-            <ul>
-              <li class="fragment">Kan extra werk zijn om libraries/modules te installeren.</li>
-              <li class="fragment">Extra boilerplate (meer code)</li>
-              <li class="fragment">Kost dus (iets) meer tijd</li>
-            </ul>
-          </section>
-        </section>
-
-        <section>
-          <h1>En nu <span class="red">echte</span> code!</h1>
-        </section>
-			</div>
-		</div>
-
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
-
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+<script>
+  // More info about config & dependencies:
+  // - https://github.com/hakimel/reveal.js#configuration
+  // - https://github.com/hakimel/reveal.js#dependencies
+  Reveal.initialize({
+    dependencies: [
+      { src: 'plugin/markdown/marked.js' },
+      { src: 'plugin/markdown/markdown.js' },
+      { src: 'plugin/notes/notes.js', async: true },
+      {
+        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+          hljs.initHighlightingOnLoad();
+        },
+      },
+    ],
+  });
+</script>
+</body>
 </html>
