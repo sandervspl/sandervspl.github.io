@@ -259,6 +259,7 @@
       <section class="page__intro" data-background-color="#242424">
         <h3>Actions</h3>
       </section>
+
       <section class="flex__row">
         <div class="left green--bg">
           <div class="flex__col">
@@ -281,6 +282,7 @@
           </code></pre>
         </div>
       </section>
+
       <section class="flex__row">
         <div class="left green--bg">
           <div class="flex__col">
@@ -303,6 +305,7 @@
           </code></pre>
         </div>
       </section>
+
       <section>
         <div class="flex__row small" style="height: 50%">
           <div class="left">
@@ -327,6 +330,7 @@
           </div>
         </div>
       </section>
+
       <section>
         <div class="flex__row small" style="height: 50%">
           <div class="left">
@@ -351,8 +355,9 @@
           </div>
         </div>
       </section>
+
       <section>
-        <div class="flex__row small" style="height: 50%; max-width: none">
+        <div class="flex__row">
           <div class="left">
             <div class="flex__col" style="justify-content: flex-start">
               <h5 class="red">Redux</h5>
@@ -388,6 +393,72 @@
                 &lt;button
                   onClick={() => this.props.todoStore.done(true)}
                 />
+              </code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex__row">
+          <div class="left">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="red">Redux</h5>
+              <ul>
+                <li>Normalize state</li>
+              </ul>
+              <pre class="fragment"><code data-trim data-noescape class="javascript hljs small" contenteditable style="max-height: none; height: 100%; line-height: 25px !important;">
+                {
+                  messages: {
+                    byId: {
+                      message1: {
+                        id: 'message1',
+                        author: 'user1',
+                        body: '...',
+                      },
+                      /* ... more messages */
+                    },
+                    allIds: ['message1', /* ... */]
+                  },
+                  users: {
+                    byId: {
+                      user1: {
+                        id: 'user1',
+                        name: 'user1',
+                      },
+                      /* ... more users */
+                    },
+                    allIds: ['user1', /* ... */]
+                  }
+                }
+              </code></pre>
+            </div>
+          </div>
+          <div class="right">
+            <div class="flex__col" style="justify-content: flex-start">
+              <h5 class="orange">MobX</h5>
+              <ul>
+                <li>Normalize state hoeft niet</li>
+              </ul>
+              <pre class="fragment"><code data-trim data-noescape class="javascript hljs" contenteditable style="max-height: none; height: 100%; line-height: 20px !important;">
+                @observable
+                messages = [
+                  {
+                    id: 'message1',
+                    author: 'user1',
+                    body: '...'.
+                  },
+                  /* ... more messages */
+                ];
+
+                @observable
+                users = [
+                  {
+                    id: 'user1',
+                    author: 'user1',
+                  },
+                  /* ... more users */
+                ];
               </code></pre>
             </div>
           </div>

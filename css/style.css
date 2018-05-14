@@ -33,6 +33,11 @@ pre {
   margin: 0 !important;
 }
 
+pre code {
+  padding: 20px !important;
+  font-size: 80% !important;
+}
+
 blockquote {
   font-family: 'Glegoo', serif !important;
   font-style: normal !important;
@@ -90,7 +95,7 @@ blockquote.fancy span {
 }
 
 .small {
-  font-size: 75% !important;
+  font-size: 65% !important;
 }
 
 .smallest {
