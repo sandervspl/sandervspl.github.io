@@ -63,50 +63,7 @@
 
     <section data-background-color="#EEEEEE">
       <section class="page__intro" data-background-color="#242424">
-        <h2>Wat is het verschil met Redux?</h2>
-      </section>
-      <section class="flex__row">
-        <div class="left flex__col">
-          <h4 class="red">Redux</h4>
-          <img src="media/img/redux-flow.png" />
-        </div>
-        <div class="fragment right flex__col">
-          <h4 class="orange">MobX</h4>
-          <img src="media/img/mobx-flow.png" />
-        </div>
-      </section>
-      <section class="flex__col">
-        <div class="top c-25">
-          <h3>De verschillen</h3>
-        </div>
-        <div class="bottom c-75">
-          <div class="flex__row small">
-            <div>
-              <h5 class="red">Redux</h5>
-              <ul>
-                <li class="fragment" data-fragment-index="1">Single store</li>
-                <li class="fragment" data-fragment-index="2">Plain objects</li>
-                <li class="fragment" data-fragment-index="3">Immutable</li>
-                <li class="fragment" data-fragment-index="4">Normalized state</li>
-              </ul>
-            </div>
-            <div>
-              <h5 class="orange">MobX</h5>
-              <ul>
-                <li class="fragment" data-fragment-index="1">Multiple stores</li>
-                <li class="fragment" data-fragment-index="2">Observable data</li>
-                <li class="fragment" data-fragment-index="3">Mutable</li>
-                <li class="fragment" data-fragment-index="4">Nested state</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section data-background-color="#EEEEEE">
-      <section class="page__intro" data-background-color="#242424">
-        <h2>Voordat we code gaan vergelijken...</h2>
+        <h2>Voordat ik code laat zien...</h2>
       </section>
 
       <section class="flex__row">
@@ -216,6 +173,259 @@
           <h3>Observer Pattern</h3>
           <div class="small">
             Een patroon waarbij je een class of functie uitbreidt met waardes en functies. Hierover later in de presentatie meer + voorbeeld.
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section data-background-color="#EEEEEE">
+      <section class="page__intro" data-background-color="#242424">
+        <h3>mobx en mobx-react API</h3>
+      </section>
+
+      <section class="flex__row">
+        <div class="left">
+          <h4>De belangrijkste MobX API decorators</h4>
+        </div>
+
+        <div class="right flex__col red--bg">
+          <ul>
+            <li>@observable</li>
+            <li>@observer</li>
+            <li>@action</li>
+            <li>@computed</li>
+            <li>@inject</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">@observable</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                <span class="fragment fade-out" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  Observable values kunnen JS primitives, references, plain objects, class instances, arrays en maps zijn.
+                </span>
+                <span class="fragment" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  MobX zal de decorated value controleren op veranderingen. Met React betekent dat er een re-render zal plaatsvinden wanneer deze value verandert.
+                </span>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            class Counter extends Component {
+              @observable count = 0;
+            }
+          </code></pre>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">@observer</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                De @observer decorator wordt gebruikt om een React component te veranderen in een Reactive Component. Data dat gebruikt wordt voor het renderen van dit component zal dit component forceren te re-renderen wanneer deze data verandert.
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @observer
+            class Counter extends Component {
+              @observable count = 0;
+            }
+          </code></pre>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">@action</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                <span class="fragment fade-out" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  Alles dat de state aanpast is een Action. Bij MobX gebruiken we @action om duidelijk te maken wat een action is en waar ze staan. Dit helpt om je code goed te structureren.
+                </span>
+                <span class="fragment" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  Actions zullen mutaties samenvoegen en alleen computed values en reactions op de hoogte brengen wanneer alle andere actions zijn afgerond. Dit zorgt er voor dat values die nog bezig zijn met updaten niet zichtbaar zijn voor de rest van de applicatie tot de action is voldaan.
+                </span>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @observer
+            class Counter extends Component {
+              @observable count = 0;
+
+              @action
+              countUp = () => {
+                this.count += 1;
+              }
+            }
+          </code></pre>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">@computed</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                <span class="fragment fade-out" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  Computed values zijn values die afkomstig zijn van de bestaande state of een andere berekende (computed) value.
+                </span>
+                <span class="fragment" data-fragment-index="1" style="position: absolute;top: 0;text-align: center;">
+                  Computed values moeten niet worden onderschat volgens MobX. Het deel van jouw state dat mag veranderen worden hiermee zo klein mogelijk gehouden. Computed values zijn geoptimaliseerd, dus je moet ze zo vaak mogelijk gebruiken.
+                </span>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @observer
+            class Counter extends Component {
+              @observable count = 0;
+
+              @action
+              countUp = () => {
+                this.count += 1;
+              }
+
+              @computed
+              isCountDone = () => {
+                return this.count === 10;
+              }
+            }
+          </code></pre>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">@inject</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                De @inject decorator gebruik je om data van MobX stores toe te voegen aan een React component. Dit is vergelijkbaar met connect van Redux.
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @inject('countStore')
+            @observer
+            class Counter extends Component {
+              render() {
+                return (
+                  &lt;p>count: {this.props.countStore.count}&lt;/p>
+                );
+              }
+            }
+          </code></pre>
+        </div>
+      </section>
+
+      <section class="flex__row">
+        <div class="left green--bg">
+          <div class="flex__col">
+            <div class="top" style="height: 15%">
+              <h4 style="color: #FFFFFF">setState?</h4>
+            </div>
+            <div class="bottom" style="height: 85%">
+              <blockquote class="fancy smallest" style="color: #FFFFFF;position: relative;height: 100%;">
+                Met MobX hoef je dus ook geen setState meer te gebruiken. Observables vervangen de state van React en geven een performance boost!
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <pre class="fragment" data-fragment-index="2"><code data-trim data-noescape class="javascript hljs" contenteditable>
+            @observer
+            class Counter extends Component {
+              @observable count = 0;
+
+              @action
+              countUp = () => {
+                this.count += 1;
+              }
+
+              render() {
+                return (
+                  &lt;div>
+                    &lt;p>count: {this.count}&lt;/p>
+                    &lt;button onClick={this.countUp}>
+                      count up!
+                    &lt;/button>
+                  &lt;/div>
+                );
+              }
+            }
+          </code></pre>
+        </div>
+      </section>
+    </section>
+
+    <section data-background-color="#EEEEEE">
+      <section class="page__intro" data-background-color="#242424">
+        <h2>Wat zijn de verschillen met Redux?</h2>
+      </section>
+      <section class="flex__row">
+        <div class="left flex__col">
+          <h4 class="red">Redux</h4>
+          <img src="media/img/redux-flow.png" />
+        </div>
+        <div class="fragment right flex__col">
+          <h4 class="orange">MobX</h4>
+          <img src="media/img/mobx-flow.png" />
+        </div>
+      </section>
+      <section class="flex__col">
+        <div class="top c-25">
+          <h3>De verschillen</h3>
+        </div>
+        <div class="bottom c-75">
+          <div class="flex__row small">
+            <div>
+              <h5 class="red">Redux</h5>
+              <ul>
+                <li class="fragment" data-fragment-index="1">Single store</li>
+                <li class="fragment" data-fragment-index="2">Plain objects</li>
+                <li class="fragment" data-fragment-index="3">Immutable</li>
+                <li class="fragment" data-fragment-index="4">Normalized state</li>
+              </ul>
+            </div>
+            <div>
+              <h5 class="orange">MobX</h5>
+              <ul>
+                <li class="fragment" data-fragment-index="1">Multiple stores</li>
+                <li class="fragment" data-fragment-index="2">Observable data</li>
+                <li class="fragment" data-fragment-index="3">Mutable</li>
+                <li class="fragment" data-fragment-index="4">Nested state</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
