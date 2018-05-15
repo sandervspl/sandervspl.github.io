@@ -34,7 +34,9 @@ pre {
 }
 
 pre code {
-  padding: 20px !important;
+  padding: 10px 20px !important;
+  height: 100% !important;
+  max-height: none !important;
   font-size: 80% !important;
 }
 
@@ -90,15 +92,15 @@ blockquote.fancy span {
   text-transform: uppercase;
 }
 
+code.small {
+  line-height: 20px !important;
+}
+
 .reveal p {
   font-size: 80%;
 }
 
 .small {
-  font-size: 65% !important;
-}
-
-.smallest {
   font-size: 65% !important;
 }
 
@@ -109,6 +111,10 @@ blockquote.fancy span {
 .red--bg {
   background-color: #ff515b !important;
   color: #FFFFFF;
+}
+
+.red--bg > * {
+  color: #FFFFFF !important;
 }
 
 .orange {
@@ -134,24 +140,6 @@ blockquote.fancy span {
 .green--bg {
   background-color: #35d087 !important;
   color: #FFFFFF;
-}
-
-.reveal .sbs {
-  display: flex !important;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.reveal .sbs.small {
-  width: 500px;
-}
-
-.reveal .sbs > div {
-  width: 100%;
-}
-
-.reveal .sbs > .w-50 {
-  width: 50%;
 }
 
 .flex__row {
