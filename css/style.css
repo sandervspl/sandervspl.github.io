@@ -139,7 +139,10 @@ code.small {
 
 .green--bg {
   background-color: #35d087 !important;
-  color: #FFFFFF;
+}
+
+.green--bg > * {
+  color: #FFFFFF !important;
 }
 
 .flex__row {
